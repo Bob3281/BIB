@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flapping Butterfly with Red Antennas</title>
+    <style>
+        /* Center the scene on the screen */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* Container keeping the butterfly parts together */
+        .butterfly {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            transform: rotateX(45deg);
+        }
+
+        /* Central body of the butterfly */
+        .body {
+            position: absolute;
+            left: 95px;
+            top: 40px; /* Lowered slightly to make room for antennas */
+            width: 10px;
+            height: 140px;
+            background: #0f3460;
+            border-radius: 5px;
+            z-index: 10;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        /* Shared antenna styles using pseudo-elements */
+        .body::before, .body::after {
+            content: '';
+            position: absolute;
+            top: -20px; /* Extend upward past the head */
+            width: 2px;
+            height: 25px;
+            background: #ff4b2b; /* Αλλαγή σε φωτεινό κόκκινο */
+            transform-origin: bottom center;
+            box-shadow: 0 0 8px rgba(255, 75, 43, 0.8); /* Προσθήκη κόκκινης λάμψης */
+        }
+
+        /* Left Antenna angled to the left */
+        .body::before {
+            left: 2px;
+            transform: rotate(-25deg);
+        }
+
+        /* Right Antenna angled to the right */
+        .body::after {
+            right: 2px;
+            transform: rotate(25deg);
+        }
+
+        /* Shared base styles for left and right wings */
+        .wing {
+            position: absolute;
+            top: 20px; /* Aligned with the lowered body */
+            width: 100px;
+            height: 160px;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            border-radius: 50% 50% 10% 40%;
+            opacity: 0.95;
+            box-shadow: 0 0 25px rgba(255, 75, 43, 0.6);
+        }
+
+        /* Specific styles for the Left Wing */
+        .left {
+            left: 0;
+            transform-origin: right center;
+            animation: flap-left 0.6s infinite ease-in-out alternate;
+        }
+
+        /* Specific styles for the Right Wing */
+        .right {
+            right: 0;
+            transform-origin: left center;
+            border-radius: 50% 50% 40% 10%;
+            background: linear-gradient(to left, #ff416c, #ff4b2b);
+            animation: flap-right 0.6s infinite ease-in-out alternate;
+        }
+
+        /* Left wing flap motion */
+        @keyframes flap-left {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(70deg);
+            }
+        }
+
+        /* Right wing flap motion */
+        @keyframes flap-right {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(-70deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="butterfly">
+        <div class="wing left"></div>
+        <div class="body"></div>
+        <div class="wing right"></div>
+    </div>
+
+</body>
+</html>
